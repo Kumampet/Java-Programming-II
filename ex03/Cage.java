@@ -1,0 +1,86 @@
+import java.util.*;
+/**
+ * Cage Example.
+ */
+
+
+public class Cage<T> {
+
+    private Vector<T> v = new Vector<T>();          
+
+    public void add(T t) {
+        v.add(t);
+    }
+
+    public T get(int i) {
+        return v.get(i);
+    }
+
+    public static void main(String[] args) {
+
+      Cage<Lion> lioncage = new Cage<Lion>();
+      Lion l1 = new Lion("LionKing1", 20);
+      Lion l2 = new Lion("LionKing2", 30);
+      lioncage.add(l1);
+      lioncage.add(l2);
+      System.out.println(lioncage.get(0));
+
+      Cage<Butterfly> butterflycage = new Cage<Butterfly>();
+      Butterfly b1 = new Butterfly("Butterfly1", 1);
+      Butterfly b2 = new Butterfly("Butterfly2", 2);
+      butterflycage.add(b1);
+      butterflycage.add(b2);
+      System.out.println(butterflycage.get(1));
+
+      // Next, create Cage<Animal>
+//    Cage<? extends Animal> animalcage = new Cage<Animal>();
+
+      Cage<Animal> animalcage = new Cage<Animal>();
+
+      Lion l3 = new Lion("LionKing3", 40);
+      Butterfly b3 = new Butterfly("Butterfly3", 3);
+      Animal a1 = new Animal("Animal1", 20);
+
+ //   animalcage.add(l3);
+ //   animalcage.add(b3);
+      animalcage.add(a1);
+
+      //      System.out.println(animalcage.get(0));
+      //    System.out.println(animalcage.get(1));
+      /* It is still OK till now */
+
+      // How about the next? Is it subtype?
+      //animalcage = butterflycage;
+      animalcage = lioncage;
+      System.out.println(animalcage.get(0));
+      System.out.println(animalcage.get(1));
+      // How can we do this?
+
+    }
+}
+
+class Animal {
+   String name;
+   int age;
+    Animal(String n, int a) {
+       name = n;
+       age = a;
+    }
+
+    public String toString() {
+      return new String("Name= " + name + ", age= " + age);
+    }
+}
+
+class Lion extends Animal {
+   public Lion(String n, int a) {
+     super(n,a);
+   }
+}
+
+class Butterfly extends Animal {
+   public Butterfly(String n, int a) {
+     super(n,a);
+   }
+
+}
